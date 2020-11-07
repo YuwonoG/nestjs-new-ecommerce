@@ -1,7 +1,7 @@
-import {IsEmail, IsNotEmpty, MinLength, ValidateIf} from 'class-validator';
+import {IsEmail, IsNotEmpty, IsOptional, MinLength, ValidateIf} from 'class-validator';
 
-export class AuthenticationCredentialDTO{
-    @IsNotEmpty()
+export class SignUpDTO{
+    @IsOptional()
     @MinLength(3, {message: 'Username is too short'})
     username:string;
 
@@ -13,4 +13,6 @@ export class AuthenticationCredentialDTO{
     @IsNotEmpty()
     @MinLength(5, {message: 'Password is too short'})
     password : string;
+
+
 }

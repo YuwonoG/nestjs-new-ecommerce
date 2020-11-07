@@ -1,7 +1,11 @@
-import { Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { RecordStatus } from "src/enum/record.enum";
+import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
-export abstract class record{
+export abstract class RecordEntity extends BaseEntity{
     
+    @Column({type:"integer", default: RecordStatus.DRAFT})
+    status : RecordStatus;
+
     @Column()
     createdByUUID : string;
     

@@ -1,8 +1,10 @@
-import { UserStatus } from "src/enum/user.enum";
-import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn } from "typeorm";
+
+import { RecordEntity } from "src/global/record.entity";
+import { Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn, Unique } from "typeorm";
 
 @Entity()
-export class User extends BaseEntity{
+@Unique(['username', 'email'])
+export class User extends RecordEntity{
     @PrimaryColumn()
     uuid : string;
 
@@ -11,6 +13,9 @@ export class User extends BaseEntity{
 
     @Column()
     password : string;
+    
+    @Column()
+    salt : string;
 
     @Column({
         nullable : true,
@@ -38,8 +43,8 @@ export class User extends BaseEntity{
     @Column({type: "numeric", default: 5.0})
     buyerRating : number;
 
-    @Column({type: "int", default: UserStatus.VERIFICATION_REQUIRED})
-    status : UserStatus;
+    // @Column({type: "int", default: UserStatus.VERIFICATION_REQUIRED})
+    // status : UserStatus;
 
     @Column()
     createdByUUID : string;
@@ -52,4 +57,5 @@ export class User extends BaseEntity{
     
     @UpdateDateColumn()
     updatedOn : Date;
+    
 }
