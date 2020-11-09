@@ -24,7 +24,7 @@ export class ProfileController {
         return this.profileService.getProfileById(id);
     }
 
-    @UseGuards(AuthGuard,)
+    @UseGuards(AuthGuard())
     @UsePipes(ValidationPipe)
     @Post()
     async createProfile(@Body() createProfileDTO : CreateProfileDTO, @GetUser() user : User){
