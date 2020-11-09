@@ -1,7 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from 'src/user/user.entity';
 
-import { CreateProfileDTO } from './dto/createProfileDTO';
+import { CreateProfileDTO } from "./dto/createProfileDTO";
+import { UpdateProfileDTO } from "./dto/updateProfileDTO";
 import { Profile } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
 
@@ -10,34 +11,24 @@ export class ProfileService {
     constructor(private readonly profileRepository : ProfileRepository){}
 
     async getProfiles() : Promise<Profile[]> {
-        console.log('Executing Service - getProfiles');
-        const profiles = this.profileRepository.find();
-        if (!profiles){
-            throw new NotFoundException(`Profile has not been defined.`);            
-        }
-        return profiles;
+        return this.profileRepository.getProfiles();
         
     }
-    async getProfileById(id : number){
-        const profile = this.profileRepository.findOne({where : {id : id}});
-        if (!profile){
-            throw new NotFoundException(`Profile not found`);            
-        }
-        return profile;
+    async getProfileById(id : number){        
+        return this.profileRepository.getProfileById(id);
     }
 
-    async createProfile(createDateColumn: CreateProfileDTO, user : User) {
-         const {name, maxListing, description} = createDateColumn;
-        console.log("Create Profile " +JSON.stringify(user));
-
-        const newProfile = new Profile();
-        newProfile.name = name;
-        newProfile.maxListing = maxListing;
-        newProfile.description = description;
-        newProfile.createdByUUID = user.uuid;
-        newProfile.updatedByUUID = user.uuid;
-
-        newProfile.save();
+    async createProfile(createProfileDTO: CreateProfileDTO, user : User):Promise<Profile> {
+        return await this.profileRepository.createProfile(createProfileDTO, user);
     }
 
+    async updateProfile(updateProfileDTO: UpdateProfileDTO, user : User):Promise<Profile> {
+        console.log("updateProfile - service");
+        console.log(updateProfileDTO);
+        return await this.profileRepository.updateProfile(updateProfileDTO, user);
+    }
+
+    async deleteProfile(id : number, user : User):Promise<void>{
+        await this.profileRepository.deleteProfile(id, user);
+    }
 }

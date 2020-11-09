@@ -1,8 +1,9 @@
 export enum RecordStatus{
-    DISABLED = 0,
-    SUSPEND  = 1,
-    VERIFICATION_REQUIRED = 2,
-    MONITORED = 3,
-    DRAFT = 4,
-    ACTIVE = 5
+    DELETED = 0,
+    DISABLED = 1,
+    SUSPEND  = 2,
+    VERIFICATION_REQUIRED = 3,
+    MONITORED = 4,
+    DRAFT = 5,
+    ACTIVE = 6
 }
