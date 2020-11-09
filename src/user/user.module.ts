@@ -15,7 +15,7 @@ import { UserService } from './user.service';
       {defaultStrategy: 'jwt'}
     ),
     JwtModule.register({
-      secret: JwtConfig.secretOrKey,
+      secret: 'JwtConfig.secretOrKey',
       signOptions:{
         // algorithm : "ES384",
         expiresIn : 3600,

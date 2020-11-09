@@ -22,6 +22,7 @@ export class UserController {
     }
     @Post('/signup')
     signUp(@Body(ValidationPipe) signUpDTO : SignUpDTO) : Promise<void>{        
+        console.log('Signup controller OK');
         return this.userService.signUp(signUpDTO);
     }
     @Post('/signin')
@@ -29,7 +30,7 @@ export class UserController {
         return this.userService.signIn(authenticationDTO);
     }
     @Post('/test')
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard())
     test(@GetUser() user : User){
         console.log(user);
     }
