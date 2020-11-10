@@ -7,7 +7,7 @@ import { Profile } from './profile.entity';
 import { ProfileRepository } from './profile.repository';
 
 @Injectable()
-export class ProfileService {
+export class ProfileService {    
     constructor(private readonly profileRepository : ProfileRepository){}
 
     async getProfiles() : Promise<Profile[]> {

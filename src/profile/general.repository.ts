@@ -1,14 +1,38 @@
 import { NotFoundException } from "@nestjs/common";
-import { RecordStatus } from "src/enum/record.enum";
 import { User } from "src/user/user.entity";
-import { EntityRepository, Repository } from "typeorm";
-import { CreateProfileDTO } from "./dto/createProfileDTO";
-import { UpdateProfileDTO } from "./dto/updateProfileDTO";
+import { Repository } from "typeorm";
 
-import { Profile } from "./profile.entity";
 
-@EntityRepository(Profile)
-export class ProfileRepository extends Repository<any> {
+export abstract class GeneralRepository<T> extends Repository<T> {
+    abstract async execute(param : any, user :User):Promise<T | void>;
+    
+    async getAllEntities() : Promise<T[]> {
+        const entities = await this.find();
+        if (!entities){
+            throw new NotFoundException(`Profile has not been defined.`);            
+        }
+        return entities;
+        
+    }
+
+    async getEntityById(id : string | number):Promise<T>{
+        const entity = await this.findOne({where : {id : id}});
+
+        if (!entity){
+            throw new NotFoundException('Entity not found');            
+        }
+        return entity;
+    }
+
+    async getEntityByUUID(uuid : string):Promise<T>{
+        const entity = await this.findOne({where : {uuid : uuid}});
+
+        if (!entity){
+            throw new NotFoundException('Entity not found');            
+        }
+        return entity;
+    }
+    /*
     async createProfile(createDateDTO: CreateProfileDTO, user : User) : Promise<Profile> {
         const {name, maxListing, description} = createDateDTO;
        console.log("Create Profile " +JSON.stringify(user));
@@ -63,4 +87,5 @@ export class ProfileRepository extends Repository<any> {
         }
         return profile;
     }
+    */
 }

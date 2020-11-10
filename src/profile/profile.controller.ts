@@ -6,16 +6,44 @@ import { CreateProfileDTO } from "./dto/createProfileDTO";
 import { UpdateProfileDTO } from "./dto/updateProfileDTO";
 import { Profile } from './profile.entity';
 
-import { ProfileService } from './profile.service';
+import { CreateService } from './create/create.service';
+import { UpdateService } from './update/update.service';
+import { DeleteService } from './delete/delete.service';
+import { DeleteProfileDTO } from './dto/deleteProfileDTO';
 
 @Controller('profile')
 @UseGuards(AuthGuard())
 export class ProfileController {
-    constructor(
-        private readonly profileService : ProfileService
-    ){}
+    constructor( 
+        private readonly createService : CreateService
+        , private readonly updateService : UpdateService
+        , private readonly deleteService : DeleteService
+        )
+    {}
+    @Post()
+    async createProfile(@Body() createProfileDTO : CreateProfileDTO, @GetUser() user : User):Promise<Profile>{        
+        console.log("ProfileController - Create");        
+        return await this.createService.execute(createProfileDTO, user);
+        
+    }
 
+    @Patch('/:id')
+    async updateProfile(@Param('id') id : number, @Body() updateProfileDTO : UpdateProfileDTO, @GetUser() user : User):Promise<Profile>{        
+        console.log("ProfileController - Update");        
+        updateProfileDTO.id = id;
+        return await this.updateService.execute(updateProfileDTO, user);
+    }
 
+    @Delete('/:id')
+    deleteProfile(@Param('id', ParseIntPipe) id : number, @GetUser() user: User):Promise<void>{
+        console.log("ProfileController - Delete");  
+        const  deleteProfileDTO = new DeleteProfileDTO();
+        deleteProfileDTO.id = id.toString();
+        return this.deleteService.execute(deleteProfileDTO, user);
+        
+    }
+
+/*
     @Get()
     async getProfiles(){
         console.log('Executing Controller - getProfiles');
@@ -49,5 +77,6 @@ export class ProfileController {
         return this.profileService.deleteProfile(id, user);
         
     }
+*/
 
 }

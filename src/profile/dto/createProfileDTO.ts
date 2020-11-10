@@ -1,6 +1,9 @@
 import { IsInt, IsNotEmpty, IsOptional, Max, Min } from "class-validator";
+import { iDTO } from "./dto.interface";
+import { GenericDTO } from "./genericDTO";
 
-export class CreateProfileDTO{
+export class CreateProfileDTO extends GenericDTO{
+    
     @IsNotEmpty({message : 'Profile name must be defined'})    
     name : string;
 
@@ -11,5 +14,4 @@ export class CreateProfileDTO{
 
     @IsOptional()
     description : string;
-
 }
