@@ -1,14 +1,16 @@
+/*
 import { NotFoundException } from "@nestjs/common";
 import { RecordStatus } from "src/enum/record.enum";
 import { User } from "src/user/user.entity";
-import { EntityRepository, Repository } from "typeorm";
 import { CreateProfileDTO } from "./dto/createProfileDTO";
 import { UpdateProfileDTO } from "./dto/updateProfileDTO";
-
+*/
 import { Profile } from "./profile.entity";
+import { EntityRepository, Repository } from "typeorm";
 
 @EntityRepository(Profile)
 export class ProfileRepository extends Repository<any> {
+/*
     async createProfile(createDateDTO: CreateProfileDTO, user : User) : Promise<Profile> {
         const {name, maxListing, description} = createDateDTO;
        console.log("Create Profile " +JSON.stringify(user));
@@ -63,4 +65,5 @@ export class ProfileRepository extends Repository<any> {
         }
         return profile;
     }
+    */
 }

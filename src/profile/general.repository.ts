@@ -1,34 +1,43 @@
 import { NotFoundException } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
 import { User } from "src/user/user.entity";
 import { Repository } from "typeorm";
+import { IBaseParam } from "./interface/baseParam.interface";
+import { ICreateParam } from "./interface/createParam.interface";
+import { IQueryParamByID } from "./interface/queryParam.interface";
+import { IUpdateParam } from "./interface/updateParam.interface";
 
 
 export abstract class GeneralRepository<T> extends Repository<T> {
-    abstract async execute(param : any, user :User):Promise<T | void>;
+    // abstract async execute(param? : any, user? :User ):Promise<T | void | T[]>;
+    abstract async execute(param : IBaseParam | ICreateParam | IUpdateParam | IQueryParamByID):Promise<T | void | T[]>;
+    
     
     async getAllEntities() : Promise<T[]> {
         const entities = await this.find();
         if (!entities){
-            throw new NotFoundException(`Profile has not been defined.`);            
+            throw new NotFoundException(`Entity has not been defined.`);            
         }
         return entities;
         
     }
 
-    async getEntityById(id : string | number):Promise<T>{
-        const entity = await this.findOne({where : {id : id}});
+    async getEntityById(id : string | number ):Promise<T>{
+        const entity =  await this.findOne({where : {id : id}});
 
         if (!entity){
-            throw new NotFoundException('Entity not found');            
+            console.log('Not Found Exception');
+            throw new NotFoundException(`Entity not found`);            
         }
-        return entity;
+        
+        return  entity ;
     }
 
     async getEntityByUUID(uuid : string):Promise<T>{
         const entity = await this.findOne({where : {uuid : uuid}});
 
         if (!entity){
-            throw new NotFoundException('Entity not found');            
+            throw new NotFoundException(`Entity not found`);            
         }
         return entity;
     }

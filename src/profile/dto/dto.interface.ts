@@ -1,3 +1,3 @@
 export interface iDTO{    
-    toJSON():string;
+    getKeys():string[];
 }

@@ -1,8 +1,8 @@
 import { iDTO } from "./dto.interface";
 
 export class GenericDTO implements iDTO{
-    toJSON(): string {
-        return this.toJSON();
+    getKeys(): string[] {
+        return Object.keys(this);
     }
 
 }

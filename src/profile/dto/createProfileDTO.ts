@@ -1,5 +1,4 @@
 import { IsInt, IsNotEmpty, IsOptional, Max, Min } from "class-validator";
-import { iDTO } from "./dto.interface";
 import { GenericDTO } from "./genericDTO";
 
 export class CreateProfileDTO extends GenericDTO{
