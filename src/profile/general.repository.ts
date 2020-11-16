@@ -1,6 +1,4 @@
 import { NotFoundException } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "src/user/user.entity";
 import { Repository } from "typeorm";
 import { IBaseParam } from "./interface/baseParam.interface";
 import { ICreateParam } from "./interface/createParam.interface";
