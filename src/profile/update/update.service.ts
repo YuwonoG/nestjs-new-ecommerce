@@ -1,15 +1,14 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "src/user/user.entity";
 import { Profile } from "../profile.entity";
-import { GenericService } from "../generic.service";
+import { GenericService } from "../../global/class/generic.service";
 import { UpdateRepository } from "./update.repository";
-import { IBaseParam } from "../interface/baseParam.interface";
-import { IUpdateParam } from "../interface/updateParam.interface";
+import { IUpdateParam } from "../../global/interface/updateParam.interface";
+import { UpdateProfileDTO } from "../dto/updateProfileDTO";
 
 
 @Injectable()
 export class UpdateService extends GenericService<Profile>{
-    execute(param: IUpdateParam): Promise<any> {
+    execute(param: IUpdateParam<UpdateProfileDTO>): Promise<any> {
         console.log("Update Service");
         return this.repository.execute(param);
     }

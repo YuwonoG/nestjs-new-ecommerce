@@ -1,13 +1,13 @@
 import { EntityRepository } from "typeorm";
-import { Profile } from "../profile.entity";
+import { Product } from "../product.entity";
 import { GeneralRepository } from "../../global/class/general.repository";
 import { IQueryParamByID } from "../../global/interface/queryParam.interface";
 import { User } from "src/user/user.entity";
 
 
-@EntityRepository(Profile)
-export class QueryRepository extends GeneralRepository<Profile>{    
-    async execute(param : IQueryParamByID): Promise<void | Profile | Profile[]> {
+@EntityRepository(Product)
+export class QueryRepository extends GeneralRepository<Product>{    
+    async execute(param : IQueryParamByID): Promise<Product | Product[] | void> {
         console.log(`QueryRepository - execute - ${JSON.stringify(param)}`);
         const id : number = param.getID();
         const user : User = param.getUser();

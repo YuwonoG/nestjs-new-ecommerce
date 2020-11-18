@@ -11,12 +11,12 @@ import { UpdateService } from './update/update.service';
 import { DeleteService } from './delete/delete.service';
 import { Roles } from '../roles/roles.decorator';
 import { QueryService } from './query/query.service';
-import { QueryParamByID } from './param/query.param';
-import { IQueryParamByID } from './interface/queryParam.interface';
-import { IUpdateParam } from './interface/updateParam.interface';
-import { UpdateParam } from './param/update.param';
-import { CreateParam } from './param/create.param';
-import { ICreateParam } from './interface/createParam.interface';
+import { QueryParamByID } from '../global/param/query.param';
+import { IQueryParamByID } from '../global/interface/queryParam.interface';
+import { IUpdateParam } from '../global/interface/updateParam.interface';
+import { UpdateParam } from '../global/param/update.param';
+import { CreateParam } from '../global/param/create.param';
+import { ICreateParam } from '../global/interface/createParam.interface';
 import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('profile')
@@ -42,7 +42,7 @@ export class ProfileController {
     @Roles('admin')
     async createProfile(  @Body() createProfileDTO : CreateProfileDTO, @GetUser() user : User):Promise<Profile>{        
          
-        const createParam : ICreateParam = new CreateParam(createProfileDTO, user); 
+        const createParam : ICreateParam<CreateProfileDTO> = new CreateParam(createProfileDTO, user); 
         console.log(`ProfileController - Create - ${JSON.stringify(createParam)}`);  
 
         return await this.createService.execute(createParam);
@@ -52,13 +52,13 @@ export class ProfileController {
     @Patch('/:id')
     async updateProfile(@Param('id') id : number, @Body() updateProfileDTO : UpdateProfileDTO, @GetUser() user : User):Promise<Profile>{        
         updateProfileDTO.id = id;
-        const updateParam : IUpdateParam = new UpdateParam(updateProfileDTO, user);
+        const updateParam : IUpdateParam<UpdateProfileDTO> = new UpdateParam(updateProfileDTO, user);
         console.log(`ProfileController - Update - ${JSON.stringify(updateParam)}`);  
         return await this.updateService.execute(updateParam);
     }
 
     @Delete('/:id')
-    deleteProfile(@Param('id', ParseIntPipe) id : number, @GetUser() user: User):Promise<void>{        
+    async deleteProfile(@Param('id', ParseIntPipe) id : number, @GetUser() user: User):Promise<void>{        
         const  deleteParam : IQueryParamByID = new QueryParamByID(id, user);
         console.log(`ProfileController - Delete - ${JSON.stringify(deleteParam)}`);  
         return this.deleteService.execute(deleteParam);
@@ -66,14 +66,14 @@ export class ProfileController {
     }
 
     @Get()
-    getProfiles(@GetUser() user : User):Promise<Profile[]>{
+    async getProfiles(@GetUser() user : User):Promise<Profile[]>{
         console.log(`ProfileController - getProfiles`);  
         const queryParamByID : IQueryParamByID = new QueryParamByID(null, user);
         return this.queryService.execute(queryParamByID);
     }
 
     @Get('/:id')
-    getProfile(@Param('id', ParseIntPipe) id: number, @GetUser() user : User):Promise<Profile>{
+    async getProfile(@Param('id', ParseIntPipe) id: number, @GetUser() user : User):Promise<Profile>{
         const queryParamByID : IQueryParamByID = new QueryParamByID(id, user);
         console.log(`ProfileController - getProfile - ${JSON.stringify(queryParamByID)}`);  
         return this.queryService.execute(queryParamByID);

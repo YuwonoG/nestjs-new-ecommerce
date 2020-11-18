@@ -1,5 +1,5 @@
 
-import { RecordEntity } from "src/global/record.entity";
+import { RecordEntity } from "src/global/entity/record.entity";
 import { Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn, Unique } from "typeorm";
 
 @Entity()

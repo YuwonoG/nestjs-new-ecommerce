@@ -1,16 +1,45 @@
-/*
 import { NotFoundException } from "@nestjs/common";
-import { RecordStatus } from "src/enum/record.enum";
-import { User } from "src/user/user.entity";
-import { CreateProfileDTO } from "./dto/createProfileDTO";
-import { UpdateProfileDTO } from "./dto/updateProfileDTO";
-*/
-import { Profile } from "./profile.entity";
-import { EntityRepository, Repository } from "typeorm";
+import { Repository } from "typeorm";
+import { IBaseParam } from "../interface/baseParam.interface";
+import { ICreateParam } from "../interface/createParam.interface";
+import { IQueryParamByID } from "../interface/queryParam.interface";
+import { IUpdateParam } from "../interface/updateParam.interface";
 
-@EntityRepository(Profile)
-export class ProfileRepository extends Repository<any> {
-/*
+
+export abstract class GeneralRepository<T> extends Repository<T> {
+    // abstract async execute(param? : any, user? :User ):Promise<T | void | T[]>;
+    abstract async execute(param : IBaseParam | ICreateParam<T> | IUpdateParam<T> | IQueryParamByID):Promise<T | T[] | void>;
+    
+    
+    async getAllEntities() : Promise<T[]> {
+        const entities = await this.find();
+        if (!entities){
+            throw new NotFoundException(`Entity has not been defined.`);            
+        }
+        return entities;
+        
+    }
+
+    async getEntityById(id : string | number ):Promise<T>{
+        const entity =  await this.findOne({where : {id : id}});
+
+        if (!entity){
+            console.log('Not Found Exception');
+            throw new NotFoundException(`Entity not found`);            
+        }
+        
+        return  entity ;
+    }
+
+    async getEntityByUUID(uuid : string):Promise<T>{
+        const entity = await this.findOne({where : {uuid : uuid}});
+
+        if (!entity){
+            throw new NotFoundException(`Entity not found`);            
+        }
+        return entity;
+    }
+    /*
     async createProfile(createDateDTO: CreateProfileDTO, user : User) : Promise<Profile> {
         const {name, maxListing, description} = createDateDTO;
        console.log("Create Profile " +JSON.stringify(user));

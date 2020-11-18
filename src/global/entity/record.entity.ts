@@ -1,5 +1,5 @@
 import { RecordStatus } from "src/enum/record.enum";
-import { BaseEntity, Column, CreateDateColumn, Entity, UpdateDateColumn } from "typeorm";
+import { BaseEntity, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 
 export abstract class RecordEntity extends BaseEntity{

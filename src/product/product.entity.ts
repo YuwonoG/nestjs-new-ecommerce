@@ -1,31 +1,28 @@
 
-import { ProductStatus } from "src/enum/product.enum";
-import { BaseEntity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { RecordEntity } from "src/global/entity/record.entity";
+import { Column, PrimaryGeneratedColumn, Unique, Entity } from "typeorm";
 
-export class Product extends BaseEntity{
+@Entity()
+@Unique(['sku'])
+export class Product extends RecordEntity{
     @PrimaryGeneratedColumn("uuid")
     uuid : string;
 
-    @Column()
+    @Column({length: 15, nullable: true})
+    sku : string;
+
+    @Column({length: 70})
     name : string;
 
-    @Column()
-    description : string;
+    @Column({length: 3000})
+    description : string;   
+  
+    @Column({length: 150})
+    tags : string;
 
-    @Column()
-    pid : string;
+    @Column({type:"numeric", precision : 18, scale: 5})
+    weight : number;
 
-    @Column({type: "numeric"})
-    price : number;
-
-    @Column({type:"enum", default: ProductStatus.DRAFT})
-    status : ProductStatus;
-    
-    @CreateDateColumn()
-    createdOn : Date;
-
-    @UpdateDateColumn()
-    updatedOn : Date;
-
-    
+    @Column({default: "gr"})
+    uom : string;
 }

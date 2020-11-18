@@ -1,7 +1,6 @@
 import { IsInt, IsNotEmpty, IsOptional, Max, Min } from "class-validator";
-import { GenericDTO } from "./genericDTO";
 
-export class UpdateProfileDTO extends GenericDTO{
+export class UpdateProfileDTO {// extends GenericDTO{
    
     @IsOptional()
     @IsInt()
