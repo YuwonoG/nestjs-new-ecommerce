@@ -1,4 +1,5 @@
 
+import { UOM } from "src/enum/uom.enum";
 import { RecordEntity } from "src/global/entity/record.entity";
 import { Column, PrimaryGeneratedColumn, Unique, Entity } from "typeorm";
 
@@ -23,6 +24,6 @@ export class Product extends RecordEntity{
     @Column({type:"numeric", precision : 18, scale: 5})
     weight : number;
 
-    @Column({default: "gr"})
+    @Column({type: "enum", enum : UOM, default: "gr"})
     uom : string;
 }

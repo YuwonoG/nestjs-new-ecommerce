@@ -7,7 +7,6 @@ import { Product } from "../product.entity";
 
 @EntityRepository(Product)
 export class CreateRepository extends GeneralRepository<Product>{    
-    // async execute(dto : iDTO, user : User): Promise<Profile> {
     async execute(param: ICreateParam<CreateProductDTO>): Promise<Product> {
         console.log(`CreateRepository - Params ${JSON.stringify(param)}`);        
         const user : User = param.getUser();

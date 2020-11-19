@@ -11,8 +11,8 @@ import { UpdateService } from './update/update.service';
 import { DeleteService } from './delete/delete.service';
 import { Roles } from '../roles/roles.decorator';
 import { QueryService } from './query/query.service';
-import { QueryParamByID } from '../global/param/query.param';
-import { IQueryParamByID } from '../global/interface/queryParam.interface';
+import { QueryParamByID } from '../global/param/queryByID.param';
+import { IQueryParamByID } from '../global/interface/queryParamByID.interface';
 import { IUpdateParam } from '../global/interface/updateParam.interface';
 import { UpdateParam } from '../global/param/update.param';
 import { CreateParam } from '../global/param/create.param';
@@ -59,7 +59,7 @@ export class ProfileController {
 
     @Delete('/:id')
     async deleteProfile(@Param('id', ParseIntPipe) id : number, @GetUser() user: User):Promise<void>{        
-        const  deleteParam : IQueryParamByID = new QueryParamByID(id, user);
+        const  deleteParam : IQueryParamByID<number> = new QueryParamByID<number>(id, user);
         console.log(`ProfileController - Delete - ${JSON.stringify(deleteParam)}`);  
         return this.deleteService.execute(deleteParam);
         
@@ -68,13 +68,13 @@ export class ProfileController {
     @Get()
     async getProfiles(@GetUser() user : User):Promise<Profile[]>{
         console.log(`ProfileController - getProfiles`);  
-        const queryParamByID : IQueryParamByID = new QueryParamByID(null, user);
+        const queryParamByID : IQueryParamByID<number> = new QueryParamByID<number>(null, user);
         return this.queryService.execute(queryParamByID);
     }
 
     @Get('/:id')
     async getProfile(@Param('id', ParseIntPipe) id: number, @GetUser() user : User):Promise<Profile>{
-        const queryParamByID : IQueryParamByID = new QueryParamByID(id, user);
+        const queryParamByID : IQueryParamByID<number> = new QueryParamByID<number>(id, user);
         console.log(`ProfileController - getProfile - ${JSON.stringify(queryParamByID)}`);  
         return this.queryService.execute(queryParamByID);
     }

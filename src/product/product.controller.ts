@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseGuards } from '@nestjs/common';
 import { ICreateParam } from 'src/global/interface/createParam.interface';
 import { CreateParam } from 'src/global/param/create.param';
 import { CreateService } from './create/create.service';
@@ -6,14 +6,23 @@ import { GetUser } from 'src/user/decorator/getUser.decorator';
 import { User } from 'src/user/user.entity';
 import { CreateProductDTO } from './dto/createProductDTO';
 import { Product } from './product.entity';
-import { IQueryParamByID } from 'src/global/interface/queryParam.interface';
-import { QueryParamByID } from 'src/global/param/query.param';
+import { IQueryParamByID } from 'src/global/interface/queryParamByID.interface';
+import { QueryParamByID } from 'src/global/param/queryByID.param';
 import { QueryService } from './query/query.service';
 import { AuthGuard } from '@nestjs/passport';
+import { IUpdateParam } from 'src/global/interface/updateParam.interface';
+import { UpdateParam } from 'src/global/param/update.param';
+import { UpdateProductDTO } from './dto/updateProductDTO';
+import { UpdateService } from './update/update.service';
+import { DeleteService } from './delete/delete.service';
 
 @Controller('products')
 export class ProductController {
-    constructor(private readonly createService : CreateService
+    constructor(
+        private readonly createService : CreateService
+        , private readonly updateService : UpdateService
+        , private readonly deleteService : DeleteService
+
         , private readonly queryService : QueryService){}
 
     @Post()   
@@ -25,16 +34,34 @@ export class ProductController {
         return await this.createService.execute(createParam);
     }
 
+    @Patch('/:uuid')   
+    @UseGuards(AuthGuard())
+    async updateProduct(@Param('uuid', ParseUUIDPipe) uuid : string, @Body() updateProductDTO : UpdateProductDTO, @GetUser() user : User) : Promise<Product>{                     
+        updateProductDTO.uuid = uuid;
+        const updateParam : IUpdateParam<UpdateProductDTO> = new UpdateParam(updateProductDTO, user); 
+        console.log(`ProductController - Update - ${JSON.stringify(updateParam)}`);  
+
+        return await this.createService.execute(updateParam);
+    }
+
+    @Delete('/:uuid')
+    async deleteProduct(@Param('uuid', ParseUUIDPipe) uuid : string, @GetUser() user: User):Promise<void>{        
+        const  deleteParam : IQueryParamByID<string> = new QueryParamByID<string>(uuid, user);
+        console.log(`ProductController - Delete - ${JSON.stringify(deleteParam)}`);  
+        return this.deleteService.execute(deleteParam);
+        
+    }
+
     @Get()    
     async getProducts(@GetUser() user : User):Promise<Product | Product[] | void>{
         console.log(`ProductController - getProducts`);  
-        const queryParamByID : IQueryParamByID = new QueryParamByID(null, user);
+        const queryParamByID : IQueryParamByID<string> = new QueryParamByID(null, user);
         return this.queryService.execute(queryParamByID);
     }
 
     @Get('/:id')
-    async getProduct(@Param('id', ParseIntPipe) id: number, @GetUser() user : User):Promise<Product | Product[] | void>{
-        const queryParamByID : IQueryParamByID = new QueryParamByID(id, user);
+    async getProduct(@Param('id') id: string, @GetUser() user : User):Promise<Product | Product[] | void>{
+        const queryParamByID : IQueryParamByID<string> = new QueryParamByID<string>(id, user);
         console.log(`ProductController - getProduct - ${JSON.stringify(queryParamByID)}`);  
         return this.queryService.execute(queryParamByID);
     }

@@ -1,7 +1,5 @@
-import { json } from "express";
 import { User } from "src/user/user.entity";
 import { IUpdateParam } from "../interface/updateParam.interface";
-import { UpdateProfileDTO } from "../../profile/dto/updateProfileDTO";
 
 export class UpdateParam<T> implements IUpdateParam<T>{
     _user: User;

@@ -4,6 +4,7 @@ import { Profile } from ".././profile.entity";
 import { GenericService } from "../../global/class/generic.service";
 import { ICreateParam } from "../../global/interface/createParam.interface";
 import { CreateProfileDTO } from "../dto/createProfileDTO";
+import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
 export class CreateService extends GenericService<Profile>{
@@ -11,7 +12,9 @@ export class CreateService extends GenericService<Profile>{
         console.log("Create Service");
         return this.repository.execute(param);
     }
-    constructor(private readonly repository : CreateRepository){
+    constructor(
+        @InjectRepository(CreateRepository)
+        private readonly repository : CreateRepository){
         super();
     }
 
