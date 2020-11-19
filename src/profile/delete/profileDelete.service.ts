@@ -1,15 +1,15 @@
 import { Injectable } from "@nestjs/common";
-import { DeleteRepository } from "./delete.repository";
+import { ProfileDeleteRepository } from "./profileDelete.repository";
 import { Profile } from "../profile.entity";
 import { GenericService } from "../../global/class/generic.service";
 import { IQueryParamByID } from "../../global/interface/queryParamByID.interface";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
-export class DeleteService extends GenericService<Profile>{
+export class ProfileDeleteService extends GenericService<Profile>{
     constructor(
-        @InjectRepository(DeleteRepository)
-        private readonly repository : DeleteRepository){
+        @InjectRepository(ProfileDeleteRepository)
+        private readonly repository : ProfileDeleteRepository){
         super();
     }
     execute(param: IQueryParamByID<number>): Promise<void> {

@@ -6,7 +6,7 @@ import { NotFoundException } from "@nestjs/common";
 import { User } from "src/user/user.entity";
 
 @EntityRepository(Profile)
-export class DeleteRepository extends GeneralRepository<Profile>{
+export class ProfileDeleteRepository extends GeneralRepository<Profile>{
     async execute(param: IQueryParamByID<number>): Promise<void> {
         console.log(`QueryRepository - execute - ${JSON.stringify(param)}`);
     

@@ -6,7 +6,7 @@ import { Product } from "../product.entity";
 import { IQueryParamByID } from "src/global/interface/queryParamByID.interface";
 
 @EntityRepository(Product)
-export class DeleteRepository extends GeneralRepository<Product>{
+export class ProductDeleteRepository extends GeneralRepository<Product>{
     async execute(param: IQueryParamByID<string>): Promise<void> {
         console.log(`QueryRepository - execute - ${JSON.stringify(param)}`);
     

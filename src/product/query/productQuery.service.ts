@@ -1,16 +1,16 @@
-import { Injectable, Query } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { Product } from "../product.entity";
 import { GenericService } from "../../global/class/generic.service";
-import { QueryRepository } from "./query.repository";
+import { ProductQueryRepository } from "./productQuery.repository";
 import { IQueryParamByID} from "../../global/interface/queryParamByID.interface"
 import { InjectRepository } from "@nestjs/typeorm";
 
 
 @Injectable()
-export class QueryService extends GenericService<Product>{
+export class ProductQueryService extends GenericService<Product>{
     constructor(
-        @InjectRepository(QueryRepository)
-        private readonly repository : QueryRepository){    
+        @InjectRepository(ProductQueryRepository)
+        private repository : ProductQueryRepository){    
         super();    
     }
     execute(param : IQueryParamByID<string>): Promise<Product | Product[] | void> {

@@ -5,16 +5,16 @@ import { CreateService } from './create/create.service';
 import { ProfileController } from './profile.controller';
 import { CreateRepository } from './create/create.repository';
 
-import { UpdateRepository } from './update/update.repository';
-import { UpdateService } from './update/update.service';
-import { DeleteRepository } from './delete/delete.repository';
-import { DeleteService } from './delete/delete.service';
-import { QueryService } from './query/query.service';
-import { QueryRepository } from './query/query.repository';
+import { ProfileUpdateRepository } from './update/profileUpdate.repository';
+import { ProfileUpdateService } from './update/profileUpdate.service';
+import { ProfileDeleteRepository } from './delete/profileDelete.repository';
+import { ProfileDeleteService } from './delete/profileDelete.service';
+import { ProfileQueryService } from './query/profileQuery.service';
+import { ProfileQueryRepository } from './query/profileQuery.repository';
 
 @Module({
-    imports:[TypeOrmModule.forFeature([CreateRepository, UpdateRepository, DeleteRepository, QueryRepository]), UserModule],
+    imports:[TypeOrmModule.forFeature([CreateRepository, ProfileUpdateRepository, ProfileDeleteRepository, ProfileQueryRepository]), UserModule],
     controllers: [ProfileController],
-    providers: [CreateService, UpdateService, DeleteService, QueryService]
+    providers: [CreateService, ProfileUpdateService, ProfileDeleteService, ProfileQueryService]
   })
 export class ProfileModule {}

@@ -7,10 +7,10 @@ import { UpdateProfileDTO } from "./dto/updateProfileDTO";
 import { Profile } from './profile.entity';
 
 import { CreateService } from './create/create.service';
-import { UpdateService } from './update/update.service';
-import { DeleteService } from './delete/delete.service';
+import { ProfileUpdateService } from './update/profileUpdate.service';
+import { ProfileDeleteService } from './delete/profileDelete.service';
 import { Roles } from '../roles/roles.decorator';
-import { QueryService } from './query/query.service';
+import { ProfileQueryService } from './query/profileQuery.service';
 import { QueryParamByID } from '../global/param/queryByID.param';
 import { IQueryParamByID } from '../global/interface/queryParamByID.interface';
 import { IUpdateParam } from '../global/interface/updateParam.interface';
@@ -25,9 +25,9 @@ import { RolesGuard } from 'src/roles/roles.guard';
 export class ProfileController {
     constructor( 
         private readonly createService : CreateService
-        , private readonly updateService : UpdateService
-        , private readonly deleteService : DeleteService
-        , private readonly queryService : QueryService
+        , private readonly updateService : ProfileUpdateService
+        , private readonly deleteService : ProfileDeleteService
+        , private readonly queryService : ProfileQueryService
         )
     {}
 

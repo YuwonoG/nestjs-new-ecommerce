@@ -8,22 +8,22 @@ import { CreateProductDTO } from './dto/createProductDTO';
 import { Product } from './product.entity';
 import { IQueryParamByID } from 'src/global/interface/queryParamByID.interface';
 import { QueryParamByID } from 'src/global/param/queryByID.param';
-import { QueryService } from './query/query.service';
+import { ProductQueryService } from './query/productQuery.service';
 import { AuthGuard } from '@nestjs/passport';
 import { IUpdateParam } from 'src/global/interface/updateParam.interface';
 import { UpdateParam } from 'src/global/param/update.param';
 import { UpdateProductDTO } from './dto/updateProductDTO';
-import { UpdateService } from './update/update.service';
-import { DeleteService } from './delete/delete.service';
+import { ProductUpdateService } from './update/productUpdate.service';
+import { ProductDeleteService } from './delete/productDelete.service';
 
 @Controller('products')
 export class ProductController {
     constructor(
         private readonly createService : CreateService
-        , private readonly updateService : UpdateService
-        , private readonly deleteService : DeleteService
+        , private readonly updateService : ProductUpdateService
+        , private readonly deleteService : ProductDeleteService
 
-        , private readonly queryService : QueryService){}
+        , private readonly queryService : ProductQueryService){}
 
     @Post()   
     @UseGuards(AuthGuard())
@@ -41,7 +41,7 @@ export class ProductController {
         const updateParam : IUpdateParam<UpdateProductDTO> = new UpdateParam(updateProductDTO, user); 
         console.log(`ProductController - Update - ${JSON.stringify(updateParam)}`);  
 
-        return await this.createService.execute(updateParam);
+        return await this.updateService.execute(updateParam);
     }
 
     @Delete('/:uuid')

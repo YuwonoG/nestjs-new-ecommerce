@@ -5,8 +5,8 @@ import { IQueryParamByID } from "../../global/interface/queryParamByID.interface
 import { User } from "src/user/user.entity";
 
 
-@EntityRepository(Profile)
-export class QueryRepository extends GeneralRepository<Profile>{    
+@EntityRepository(Profile) 
+export class ProfileQueryRepository extends GeneralRepository<Profile>{    
     async execute(param : IQueryParamByID<number>): Promise<void | Profile | Profile[]> {
         console.log(`QueryRepository - execute - ${JSON.stringify(param)}`);
         const id : number = param.getID<number>() ;

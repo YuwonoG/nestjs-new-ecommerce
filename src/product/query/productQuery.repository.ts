@@ -1,4 +1,4 @@
-import { EntityRepository, Repository} from "typeorm";
+import { EntityRepository} from "typeorm";
 import { GeneralRepository } from "../../global/class/general.repository";
 import { IQueryParamByID } from "../../global/interface/queryParamByID.interface";
 import { User } from "src/user/user.entity";
@@ -6,7 +6,7 @@ import { Product } from "../product.entity";
 
 
 @EntityRepository(Product)
-export class QueryRepository extends Repository<Product>{ //extends GeneralRepository<Product>{    
+export class ProductQueryRepository extends GeneralRepository<Product>{    
     async execute(param : IQueryParamByID<string>): Promise<Product | Product[] | void> {
         console.log(`Product - QueryRepository - execute - ${JSON.stringify(param)}`);
         const id : string = param.getID<string>();
@@ -19,7 +19,7 @@ export class QueryRepository extends Repository<Product>{ //extends GeneralRepos
 
         if (id)
         {
-            return await this.findOne({where : {id : id}});// this.getEntityById(id);    
+            return await this.findOne({where : {uuid : id}});// this.getEntityById(id);    
         }
         return await this.find();//this.getAllEntities();
 

@@ -6,8 +6,9 @@ import { GeneralRepository } from "../../global/class/general.repository";
 import { IUpdateParam } from "../../global/interface/updateParam.interface";
 
 @EntityRepository(Profile)
-export class UpdateRepository extends GeneralRepository<Profile>{
+export class ProfileUpdateRepository extends GeneralRepository<Profile>{
     async execute(param: IUpdateParam<UpdateProfileDTO>): Promise<void | Profile | Profile[]> {
+        let result;
         console.log(`UpdateRepository - Params ${JSON.stringify(param)}`);        
         const user : User = param.getUser();
         console.log('Param - before');        
@@ -24,7 +25,21 @@ export class UpdateRepository extends GeneralRepository<Profile>{
         selectedProfile.createdByUUID = user.uuid;
         selectedProfile.updatedByUUID = user.uuid;
 
-        return await selectedProfile.save();
+        try{
+            result = await selectedProfile.save();
+        }
+        catch(error){
+            if (error.code === '23505'){
+                console.log(`Error - ${error}`);
+                console.log(`Code - ${error.code}`);
+                console.log(`Detail - ${error.detail}`);
+                console.log(`Query - ${error.query}`);
+                console.log(`Parameters- ${error.paramters}`);
+            }
+
+
+        }
+        return result;
  }    
 
     
