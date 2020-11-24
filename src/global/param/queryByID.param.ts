@@ -1,5 +1,5 @@
 import { User } from "src/user/user.entity";
-import { IQueryParamByID } from "../interface/queryParamByID.interface";
+import { IQueryParamByID } from "../interface/iQueryParamByID.interface";
 
 
 export class QueryParamByID<T> implements IQueryParamByID<T>{

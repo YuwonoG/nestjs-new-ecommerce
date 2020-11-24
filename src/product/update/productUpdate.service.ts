@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { Product } from "../product.entity";
 import { GenericService } from "../../global/class/generic.service";
 import { ProductUpdateRepository } from "./productUpdate.repository";
-import { IUpdateParam } from "../../global/interface/updateParam.interface";
-import { UpdateProductDTO } from "../dto/updateProductDTO";
+import { IUpdateParam } from "../../global/interface/iUpdateParam.interface";
+import { UpdateProductDTO } from "../dto/updateProduct.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 
 

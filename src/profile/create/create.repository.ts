@@ -1,9 +1,9 @@
 import { User } from "src/user/user.entity";
 import { EntityRepository } from "typeorm";
-import { CreateProfileDTO } from "../dto/createProfileDTO";
+import { CreateProfileDTO } from "../dto/createProfile.dto";
 import { Profile } from "../profile.entity";
 import { GeneralRepository } from "../../global/class/general.repository";
-import { ICreateParam } from "../../global/interface/createParam.interface";
+import { ICreateParam } from "../../global/interface/iCreateParam.interface";
 
 @EntityRepository(Profile)
 export class CreateRepository extends GeneralRepository<Profile>{    

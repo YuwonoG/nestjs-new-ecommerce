@@ -1,6 +1,6 @@
 import { EntityRepository} from "typeorm";
 import { GeneralRepository } from "../../global/class/general.repository";
-import { IQueryParamByID } from "../../global/interface/queryParamByID.interface";
+import { IQueryParamByID } from "../../global/interface/iQueryParamByID.interface";
 import { User } from "src/user/user.entity";
 import { Product } from "../product.entity";
 

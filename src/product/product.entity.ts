@@ -3,7 +3,7 @@ import { UOM } from "src/enum/uom.enum";
 import { RecordEntity } from "src/global/entity/record.entity";
 import { Column, PrimaryGeneratedColumn, Unique, Entity } from "typeorm";
 
-@Entity()
+@Entity({name : "Product", orderBy : {name : "ASC"}})
 @Unique(['sku'])
 export class Product extends RecordEntity{
     @PrimaryGeneratedColumn("uuid")

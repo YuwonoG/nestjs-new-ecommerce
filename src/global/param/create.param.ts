@@ -1,5 +1,5 @@
 import { User } from "src/user/user.entity";
-import { ICreateParam } from "../interface/createParam.interface";
+import { ICreateParam } from "../interface/iCreateParam.interface";
 
 export class CreateParam<T> implements ICreateParam<T>{
     _user: User;

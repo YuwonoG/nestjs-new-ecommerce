@@ -16,8 +16,8 @@ export class UserService {
 
         ){}
 
-        async signUp(signUpDTO : SignUpDTO): Promise<void>{
-             return await this.userRepository.signUp(signUpDTO);
+        async createUser(signUpDTO : SignUpDTO): Promise<void>{
+             return await this.userRepository.createUser(signUpDTO);
         }
 
         async signIn(authenticationDTO : AuthenticationDTO):Promise<iAccessToken>{

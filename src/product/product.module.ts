@@ -15,7 +15,7 @@ import { ProductQueryRepository } from './query/productQuery.repository';
 import { ProductDeleteRepository } from './delete/productDelete.repository';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([CreateRepository, ProductUpdateRepository, ProductDeleteRepository, ProductQueryRepository]), UserModule],
+  imports:[TypeOrmModule.forFeature([CreateRepository, ProductUpdateRepository, ProductDeleteRepository, ProductQueryRepository])],
   controllers: [ProductController],
   providers: [CreateService, ProductUpdateService, ProductDeleteService, ProductQueryService]
 

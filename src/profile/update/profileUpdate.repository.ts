@@ -1,9 +1,9 @@
 import { User } from "src/user/user.entity";
 import { EntityRepository } from "typeorm";
-import { UpdateProfileDTO } from "../dto/updateProfileDTO";
+import { UpdateProfileDTO } from "../dto/updateProfile.dto";
 import { Profile } from "../profile.entity";
 import { GeneralRepository } from "../../global/class/general.repository";
-import { IUpdateParam } from "../../global/interface/updateParam.interface";
+import { IUpdateParam } from "../../global/interface/iUpdateParam.interface";
 
 @EntityRepository(Profile)
 export class ProfileUpdateRepository extends GeneralRepository<Profile>{

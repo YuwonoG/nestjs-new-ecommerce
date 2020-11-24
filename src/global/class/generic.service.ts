@@ -1,8 +1,8 @@
 
-import { IBaseParam } from '../interface/baseParam.interface';
-import { ICreateParam } from '../interface/createParam.interface';
-import { IQueryParamByID } from '../interface/queryParamByID.interface';
-import { IUpdateParam } from '../interface/updateParam.interface';
+import { IBaseParam } from '../interface/iBaseParam.interface';
+import { ICreateParam } from '../interface/iCreateParam.interface';
+import { IQueryParamByID } from '../interface/iQueryParamByID.interface';
+import { IUpdateParam } from '../interface/iUpdateParam.interface';
 
 export abstract class GenericService<T> {    
     // abstract async execute(param? : any, user?: User):Promise<T | T[] | void>;   

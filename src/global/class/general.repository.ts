@@ -1,9 +1,9 @@
 import { NotFoundException } from "@nestjs/common";
-import { Repository } from "typeorm";
-import { IBaseParam } from "../interface/baseParam.interface";
-import { ICreateParam } from "../interface/createParam.interface";
-import { IQueryParamByID } from "../interface/queryParamByID.interface";
-import { IUpdateParam } from "../interface/updateParam.interface";
+import { FindConditions, FindOneOptions, Repository } from "typeorm";
+import { IBaseParam } from "../interface/iBaseParam.interface";
+import { ICreateParam } from "../interface/iCreateParam.interface";
+import { IQueryParamByID } from "../interface/iQueryParamByID.interface";
+import { IUpdateParam } from "../interface/iUpdateParam.interface";
 
 
 export abstract class GeneralRepository<T> extends Repository<T> {
@@ -22,7 +22,7 @@ export abstract class GeneralRepository<T> extends Repository<T> {
 
     async getEntityById(id : string | number ):Promise<T>{
         const entity =  await this.findOne({where : {id : id}});
-
+        console.log(`General Repository - getEntityById ${JSON.stringify(entity)}`);
         if (!entity){
             console.log('Not Found Exception');
             throw new NotFoundException(`Entity not found`);            
@@ -37,6 +37,16 @@ export abstract class GeneralRepository<T> extends Repository<T> {
         if (!entity){
             throw new NotFoundException(`Entity not found`);            
         }
+        return entity;
+    }
+
+    async getEntity(conditions? : FindConditions<T>, options? : FindOneOptions<T>):Promise<T>{
+        const entity = await this.findOne(conditions, options);
+
+        if (!entity){
+            throw new NotFoundException(`Entity not found`);            
+        }
+
         return entity;
     }
     

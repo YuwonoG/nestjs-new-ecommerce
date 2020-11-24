@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ProductDeleteRepository } from "./productDelete.repository";
 import { GenericService } from "../../global/class/generic.service";
-import { IQueryParamByID } from "../../global/interface/queryParamByID.interface";
+import { IQueryParamByID } from "../../global/interface/iQueryParamByID.interface";
 import { Product } from "../product.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 

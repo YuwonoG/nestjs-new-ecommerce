@@ -1,9 +1,10 @@
+import { NotFoundException } from "@nestjs/common";
 import { User } from "src/user/user.entity";
 import { EntityRepository } from "typeorm";
 import { GeneralRepository } from "../../global/class/general.repository";
-import { IUpdateParam } from "../../global/interface/updateParam.interface";
-import { CreateProductDTO } from "../dto/createProductDTO";
-import { UpdateProductDTO } from "../dto/updateProductDTO";
+import { IUpdateParam } from "../../global/interface/iUpdateParam.interface";
+import { CreateProductDTO } from "../dto/createProduct.dto";
+import { UpdateProductDTO } from "../dto/updateProduct.dto";
 import { Product } from "../product.entity";
 
 
@@ -17,27 +18,30 @@ export class ProductUpdateRepository extends GeneralRepository<Product>{
         const {uuid, sku, name, description, tags, weight } = createProductDTO;
 
         const selectedProduct = await this.getEntityByUUID(uuid); //this.findOne({where : [{id : id}]});
-        
-        selectedProduct.sku = sku;
-        selectedProduct.name = name;
-        selectedProduct.description = description;
-        selectedProduct.tags = tags;
-        selectedProduct.weight = weight;
-        selectedProduct.updatedByUUID = user.uuid;
- 
-        try{
-            result = await selectedProduct.save();
-        }
-        catch(error){
-            if (error.code === '23505'){
-                console.log(`Error - ${error}`);
-                console.log(`Code - ${error.code}`);
-                console.log(`Detail - ${error.detail}`);
-                console.log(`Query - ${error.query}`);
-                console.log(`Parameters- ${error.paramters}`);
+        if (selectedProduct.createdByUUID === user.uuid)
+        {
+            selectedProduct.sku = sku;
+            selectedProduct.name = name;
+            selectedProduct.description = description;
+            selectedProduct.tags = tags;
+            selectedProduct.weight = weight;
+            selectedProduct.updatedByUUID = user.uuid;
+    
+            try{
+                result = await selectedProduct.save();
             }
-
-
+            catch(error){
+                if (error.code === '23505'){
+                    console.log(`Error - ${error}`);
+                    console.log(`Code - ${error.code}`);
+                    console.log(`Detail - ${error.detail}`);
+                    console.log(`Query - ${error.query}`);
+                    console.log(`Parameters- ${error.paramters}`);
+                }
+            }
+        }
+        else{
+            throw new NotFoundException(`Product is not found.`);
         }
         return result;
  }    

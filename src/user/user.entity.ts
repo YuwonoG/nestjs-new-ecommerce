@@ -1,8 +1,10 @@
 
 import { RecordEntity } from "src/global/entity/record.entity";
-import { Column, CreateDateColumn, UpdateDateColumn, Entity, PrimaryColumn, Unique } from "typeorm";
+import { Product } from "src/product/product.entity";
+import { Profile } from "src/profile/profile.entity";
+import { Column, Entity, PrimaryColumn, Unique, OneToMany, OneToOne, JoinColumn, ManyToOne } from "typeorm";
 
-@Entity()
+@Entity({name: "User", orderBy : {firstName:"ASC"}})
 @Unique(['username', 'email'])
 export class User extends RecordEntity{
     @PrimaryColumn()
@@ -46,16 +48,14 @@ export class User extends RecordEntity{
     // @Column({type: "int", default: UserStatus.VERIFICATION_REQUIRED})
     // status : UserStatus;
 
-    @Column()
-    createdByUUID : string;
+    @OneToMany(()=> Product, product => product.createdByUUID)
+    products : Product[];
     
-    @CreateDateColumn()
-    createdOn : Date;
+    @OneToOne(()=>Profile, profile => profile.sellerProfile )
+    @JoinColumn()
+    sellerProfile: Profile;
 
-    @Column()
-    updatedByUUID : string;
-    
-    @UpdateDateColumn()
-    updatedOn : Date;
-    
+    @OneToOne(()=>Profile, profile => profile.buyerProfile )
+    @JoinColumn()
+    buyerProfile: Profile;
 }

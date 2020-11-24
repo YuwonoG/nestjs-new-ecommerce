@@ -1,8 +1,8 @@
 import { User } from "src/user/user.entity";
 import { EntityRepository } from "typeorm";
 import { GeneralRepository } from "../../global/class/general.repository";
-import { ICreateParam } from "../../global/interface/createParam.interface";
-import { CreateProductDTO } from "../dto/createProductDTO";
+import { ICreateParam } from "../../global/interface/iCreateParam.interface";
+import { CreateProductDTO } from "../dto/createProduct.dto";
 import { Product } from "../product.entity";
 
 @EntityRepository(Product)

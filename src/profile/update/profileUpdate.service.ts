@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { Profile } from "../profile.entity";
 import { GenericService } from "../../global/class/generic.service";
 import { ProfileUpdateRepository } from "./profileUpdate.repository";
-import { IUpdateParam } from "../../global/interface/updateParam.interface";
-import { UpdateProfileDTO } from "../dto/updateProfileDTO";
+import { IUpdateParam } from "../../global/interface/iUpdateParam.interface";
+import { UpdateProfileDTO } from "../dto/updateProfile.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 
 

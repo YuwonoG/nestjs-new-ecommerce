@@ -2,8 +2,8 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post,  UseGu
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from 'src/user/decorator/getUser.decorator';
 import { User } from 'src/user/user.entity';
-import { CreateProfileDTO } from "./dto/createProfileDTO";
-import { UpdateProfileDTO } from "./dto/updateProfileDTO";
+import { CreateProfileDTO } from "./dto/createProfile.dto";
+import { UpdateProfileDTO } from "./dto/updateProfile.dto";
 import { Profile } from './profile.entity';
 
 import { CreateService } from './create/create.service';
@@ -12,11 +12,11 @@ import { ProfileDeleteService } from './delete/profileDelete.service';
 import { Roles } from '../roles/roles.decorator';
 import { ProfileQueryService } from './query/profileQuery.service';
 import { QueryParamByID } from '../global/param/queryByID.param';
-import { IQueryParamByID } from '../global/interface/queryParamByID.interface';
-import { IUpdateParam } from '../global/interface/updateParam.interface';
+import { IQueryParamByID } from '../global/interface/iQueryParamByID.interface';
+import { IUpdateParam } from '../global/interface/iUpdateParam.interface';
 import { UpdateParam } from '../global/param/update.param';
 import { CreateParam } from '../global/param/create.param';
-import { ICreateParam } from '../global/interface/createParam.interface';
+import { ICreateParam } from '../global/interface/iCreateParam.interface';
 import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('profile')
@@ -66,14 +66,14 @@ export class ProfileController {
     }
 
     @Get()
-    async getProfiles(@GetUser() user : User):Promise<Profile[]>{
+    async getProfiles(@GetUser() user : User):Promise<void | Profile | Profile[]>{
         console.log(`ProfileController - getProfiles`);  
         const queryParamByID : IQueryParamByID<number> = new QueryParamByID<number>(null, user);
         return this.queryService.execute(queryParamByID);
     }
 
     @Get('/:id')
-    async getProfile(@Param('id', ParseIntPipe) id: number, @GetUser() user : User):Promise<Profile>{
+    async getProfile(@Param('id', ParseIntPipe) id: number, @GetUser() user : User):Promise<void | Profile | Profile[]>{
         const queryParamByID : IQueryParamByID<number> = new QueryParamByID<number>(id, user);
         console.log(`ProfileController - getProfile - ${JSON.stringify(queryParamByID)}`);  
         return this.queryService.execute(queryParamByID);

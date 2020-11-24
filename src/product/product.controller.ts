@@ -1,18 +1,18 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post, UseGuards } from '@nestjs/common';
-import { ICreateParam } from 'src/global/interface/createParam.interface';
+import { ICreateParam } from 'src/global/interface/iCreateParam.interface';
 import { CreateParam } from 'src/global/param/create.param';
 import { CreateService } from './create/create.service';
 import { GetUser } from 'src/user/decorator/getUser.decorator';
 import { User } from 'src/user/user.entity';
-import { CreateProductDTO } from './dto/createProductDTO';
+import { CreateProductDTO } from './dto/createProduct.dto';
 import { Product } from './product.entity';
-import { IQueryParamByID } from 'src/global/interface/queryParamByID.interface';
+import { IQueryParamByID } from 'src/global/interface/iQueryParamByID.interface';
 import { QueryParamByID } from 'src/global/param/queryByID.param';
 import { ProductQueryService } from './query/productQuery.service';
 import { AuthGuard } from '@nestjs/passport';
-import { IUpdateParam } from 'src/global/interface/updateParam.interface';
+import { IUpdateParam } from 'src/global/interface/iUpdateParam.interface';
 import { UpdateParam } from 'src/global/param/update.param';
-import { UpdateProductDTO } from './dto/updateProductDTO';
+import { UpdateProductDTO } from './dto/updateProduct.dto';
 import { ProductUpdateService } from './update/productUpdate.service';
 import { ProductDeleteService } from './delete/productDelete.service';
 

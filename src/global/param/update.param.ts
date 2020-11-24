@@ -1,5 +1,5 @@
 import { User } from "src/user/user.entity";
-import { IUpdateParam } from "../interface/updateParam.interface";
+import { IUpdateParam } from "../interface/iUpdateParam.interface";
 
 export class UpdateParam<T> implements IUpdateParam<T>{
     _user: User;

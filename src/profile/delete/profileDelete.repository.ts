@@ -1,7 +1,7 @@
 import { EntityRepository } from "typeorm";
 import { Profile } from "../profile.entity";
 import { GeneralRepository } from "../../global/class/general.repository";
-import { IQueryParamByID } from "../../global/interface/queryParamByID.interface";
+import { IQueryParamByID } from "../../global/interface/iQueryParamByID.interface";
 import { NotFoundException } from "@nestjs/common";
 import { User } from "src/user/user.entity";
 

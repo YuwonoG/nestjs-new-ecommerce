@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { CreateRepository } from "./create.repository";
 import { GenericService } from "../../global/class/generic.service";
-import { ICreateParam } from "../../global/interface/createParam.interface";
+import { ICreateParam } from "../../global/interface/iCreateParam.interface";
 import { Product } from "../product.entity";
-import { CreateProductDTO } from "../dto/createProductDTO";
+import { CreateProductDTO } from "../dto/createProduct.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
